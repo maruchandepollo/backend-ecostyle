@@ -1,15 +1,24 @@
 package com.ecostyle.EcoStyle.controller;
 
-import com.ecostyle.EcoStyle.dto.ProductoDTO;
-import com.ecostyle.EcoStyle.service.ProductoService;
-import com.ecostyle.EcoStyle.util.JwtUtil;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import com.ecostyle.EcoStyle.dto.ProductoDTO;
+import com.ecostyle.EcoStyle.service.ProductoService;
+import com.ecostyle.EcoStyle.util.JwtUtil;
 
 @RestController
 @RequestMapping("/productos")
@@ -21,7 +30,7 @@ public class ProductoController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // ✅ SOLO ADMIN
+    // SOLO ADMIN
     @PostMapping("/crear")
     public ResponseEntity<?> crear(
             @RequestBody ProductoDTO dto,
@@ -40,7 +49,7 @@ public class ProductoController {
         }
     }
 
-    // ✅ PÚBLICO
+    // PÚBLICO
     @GetMapping("/listar")
     public ResponseEntity<?> listarTodos() {
         try {
@@ -52,7 +61,7 @@ public class ProductoController {
         }
     }
 
-    // ✅ PÚBLICO
+    // PÚBLICO
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
         try {
@@ -64,7 +73,7 @@ public class ProductoController {
         }
     }
 
-    // ✅ SOLO ADMIN
+    // SOLO ADMIN
     @PutMapping("/editar/{id}")
     public ResponseEntity<?> actualizar(
             @PathVariable Long id,
@@ -84,7 +93,7 @@ public class ProductoController {
         }
     }
 
-    // ✅ SOLO ADMIN
+    // SOLO ADMIN
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminar(
             @PathVariable Long id,

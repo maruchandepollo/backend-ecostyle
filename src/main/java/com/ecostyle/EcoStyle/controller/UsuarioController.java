@@ -1,16 +1,25 @@
 package com.ecostyle.EcoStyle.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ecostyle.EcoStyle.dto.UsuarioDTO;
 import com.ecostyle.EcoStyle.dto.UsuarioResponseDTO;
 import com.ecostyle.EcoStyle.service.UsuarioService;
 import com.ecostyle.EcoStyle.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -22,7 +31,7 @@ public class UsuarioController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // ✅ PÚBLICO
+    // PÚBLICO
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UsuarioDTO dto) {
         try {
@@ -34,7 +43,7 @@ public class UsuarioController {
         }
     }
 
-    // ✅ PÚBLICO
+    // PÚBLICO
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
         try {
@@ -48,7 +57,7 @@ public class UsuarioController {
         }
     }
 
-    // ✅ SOLO ADMIN
+    // SOLO ADMIN
     @GetMapping("/listar")
     public ResponseEntity<?> listarTodos(
             @RequestHeader(value = "Authorization", required = false) String authHeader) {
@@ -66,7 +75,7 @@ public class UsuarioController {
         }
     }
 
-    // ✅ PÚBLICO
+    // PÚBLICO
     @GetMapping("/{email}")
     public ResponseEntity<?> obtenerPorEmail(@PathVariable String email) {
         try {
@@ -78,7 +87,7 @@ public class UsuarioController {
         }
     }
 
-    // ✅ SOLO ADMIN
+    // SOLO ADMIN
     @PutMapping("/editar/{email}")
     public ResponseEntity<?> actualizar(
             @PathVariable String email,
@@ -98,7 +107,7 @@ public class UsuarioController {
         }
     }
 
-    // ✅ SOLO ADMIN
+    // SOLO ADMIN
     @DeleteMapping("/eliminar/{email}")
     public ResponseEntity<?> eliminar(
             @PathVariable String email,

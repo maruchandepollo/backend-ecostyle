@@ -1,5 +1,12 @@
 package com.ecostyle.EcoStyle.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ecostyle.EcoStyle.dto.UsuarioDTO;
 import com.ecostyle.EcoStyle.dto.UsuarioResponseDTO;
 import com.ecostyle.EcoStyle.model.Persona;
@@ -7,15 +14,8 @@ import com.ecostyle.EcoStyle.model.TipoUsuario;
 import com.ecostyle.EcoStyle.model.Usuario;
 import com.ecostyle.EcoStyle.repository.PersonaRepository;
 import com.ecostyle.EcoStyle.repository.UsuarioRepository;
-import com.ecostyle.EcoStyle.util.Util;
 import com.ecostyle.EcoStyle.util.JwtUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.ecostyle.EcoStyle.util.Util;
 
 @Service
 public class UsuarioService {
@@ -43,10 +43,13 @@ public class UsuarioService {
             throw new RuntimeException("El email ya está registrado");
         }
 
+        // Crear y guardar la Persona primero
         Persona persona = new Persona();
         persona.setRut(dto.getRut());
         persona.setNombre(dto.getNombre());
+        personaRepository.save(persona);
 
+        // Luego crear el Usuario
         Usuario usuario = new Usuario();
         usuario.setId(util.generarID());
         usuario.setEmail(dto.getEmail());
